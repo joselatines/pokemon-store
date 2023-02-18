@@ -3,6 +3,11 @@
 ## Description 📚
  This project is a simple Pokemon store built with React, where users can browse and buy their favorite Pokemons. 
 
+## Application:
+![Screen 1](public/screen1.jpg) 
+![Screen 2](public/screen2.jpg) 
+![Screen 3](public/screen3.jpg) 
+
 ## Features:
 1. Shopping cart state management
 2. Integration with PokeApi
