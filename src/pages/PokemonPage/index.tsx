@@ -5,12 +5,13 @@ import { Link, useParams } from 'react-router-dom';
 import { Layout } from '../../components/Layout';
 import { IPokemon } from '../../components/PokemonCard';
 import { StatsContainer } from '../../components/PokemonCard/StatsContainer';
+import { useCart } from '../../context/CartContext';
 import { decidePokemonType } from '../../utils/stringsModifiers';
 
 export function PokemonPage() {
 	const { pokemonName } = useParams();
 	const [pokemonData, setPokemonData] = useState<IPokemon | null>(null);
-
+	const { addToCart } = useCart();
 	useEffect(() => {
 		const fetchPokemons = async () => {
 			try {
@@ -42,6 +43,13 @@ export function PokemonPage() {
 		fetchPokemons();
 	}, []);
 
+	const handleAddOne = (pokemon: IPokemon) => {
+		addToCart(pokemon);
+		toast.success(`${pokemon.name} added 1`);
+
+		toast('Press "Reload" button to se changes');
+	};
+
 	return (
 		<Layout>
 			<button>
@@ -49,7 +57,7 @@ export function PokemonPage() {
 			</button>
 			{pokemonData ? (
 				<main className='flex align-center justify-center '>
-					<div className=' text-center shadow-xl text-3xl items-center grid align-center p-8'>
+					<div className=' text-center shadow-xl text-xl items-center grid align-center p-8'>
 						<div className='flex align-center justify-center'>
 							<img
 								className='h-60 w-60'
@@ -72,6 +80,9 @@ export function PokemonPage() {
 								{decidePokemonType(type, 'emoji')} {type}
 							</span>
 						))}
+						<button onClick={() => handleAddOne(pokemonData)}>
+						➕ Add to Cart
+					</button>
 					</div>
 				</main>
 			) : (
